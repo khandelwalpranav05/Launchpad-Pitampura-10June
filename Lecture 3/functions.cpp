@@ -9,6 +9,7 @@ int factorial(int n){
 	}
 
 	return result;
+	// return 'A';
 }
 
 int main(){
@@ -18,26 +19,31 @@ int main(){
 	int r;
 	cin>>r;
 
-	int nfact = 1;
+	// int nfact = 1;
 
-	for(int i = 1;i<=n;i++){
-		nfact = nfact*i;
-	}
+	// for(int i = 1;i<=n;i++){
+	// 	nfact = nfact*i;
+	// }
 
-	int rfact = 1;
-	for(int i= 1;i<=r;i++){
-		rfact = rfact*i;
-	}
+	// int rfact = 1;
+	// for(int i= 1;i<=r;i++){
+	// 	rfact = rfact*i;
+	// }
 
-	int nrfact = 1;
-	for(int i=1;i<=(n-r);i++){
-		nrfact = nrfact*i;
-	}
+	// int nrfact = 1;
+	// for(int i=1;i<=(n-r);i++){
+	// 	nrfact = nrfact*i;
+	// }
 
-	int sum = nfact/(rfact*nrfact);
+	// int sum = nfact/(rfact*nrfact);
 
 	// cout<<sum<<endl;
 
+	int nfact = factorial(n);
+	int rfact = factorial(r);
+	int nrfact = factorial(n-r);
+	int sum = nfact/(rfact*nrfact);
+	
 	int sum = factorial(n)/(factorial(r)*factorial(n-r));
 	cout<<sum<<endl;
 
