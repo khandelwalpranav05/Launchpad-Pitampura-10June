@@ -102,6 +102,37 @@ bool isSorted(int *arr,int size){
     return false;
 }
 
+int linearSearch(int arr[],int size,int i,int data){
+	if(i==size){
+		return -1;
+	}
+
+	if(arr[i]==data){
+		return i;
+	}
+
+	int rest = linearSearch(arr,size,i+1,data);
+	return rest;
+}
+
+int lastIndex(int arr[],int size,int i,int data){
+	if(i==size){
+		return -1;
+	}
+
+	int rest = lastIndex(arr,size,i+1,data);
+
+	if(rest!=-1){
+		return rest;
+	}else{
+		if(arr[i]==data){
+			return i;
+		}else{
+			return -1;
+		}
+	}
+}
+
 int main(){
 
 	// cout<<sumTilln(4)<<endl;
@@ -115,11 +146,21 @@ int main(){
 	// printID(5);
 
 	// int n=5;
- //   	int p = 3;
+ 	// int p = 3;
 	// cout<<power(n,p)<<endl;
 
     // int arr[] = {1,2,3,4,5};
     // cout<<isSorted(arr,5)<<endl;
 
+    // int arr[] = {12,15,48,86,13};
+    // int data = 86;
+    // int size = 5;
+
+    // cout<<linearSearch(arr,size,0,data)<<endl;
+	int arr[] = {12,15,86,15,11};
+	int size= 5;
+	int data = 15;
+
+	cout<<lastIndex(arr,size,0,data)<<endl;
 	return 0;
 }
