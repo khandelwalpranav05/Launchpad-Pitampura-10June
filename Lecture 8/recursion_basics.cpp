@@ -155,12 +155,12 @@ int main(){
     // int arr[] = {12,15,48,86,13};
     // int data = 86;
     // int size = 5;
+	// cout<<linearSearch(arr,size,0,data)<<endl;
+	
+	// int arr[] = {12,15,86,15,11};
+	// int size= 5;
+	// int data = 15;
+	// cout<<lastIndex(arr,size,0,data)<<endl;
 
-    // cout<<linearSearch(arr,size,0,data)<<endl;
-	int arr[] = {12,15,86,15,11};
-	int size= 5;
-	int data = 15;
-
-	cout<<lastIndex(arr,size,0,data)<<endl;
 	return 0;
 }
