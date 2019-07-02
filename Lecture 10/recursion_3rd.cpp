@@ -137,13 +137,13 @@ int main(){
 
 	// printPermutations("abc","");
 
-	// char ch = '2';
-	// int ch_int = ch - '0';
-	// cout<<ch_int<<endl;
+	char ch = '2';
+	int ch_int = ch - '0';
+	cout<<ch_int<<endl; // Output 2
 
-	// char alpha_ch = '2';
-	// alpha_ch = alpha_ch - '0' + 'A' - 1;
-	// cout<<alpha_ch<<endl;
+	char alpha_ch = '2';
+	alpha_ch = alpha_ch - '0' + 'A' - 1;
+	cout<<alpha_ch<<endl; // Output B
 
 	return 0;
 }
