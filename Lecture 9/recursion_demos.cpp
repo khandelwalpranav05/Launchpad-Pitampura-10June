@@ -1,4 +1,5 @@
 #include<iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ int powerFast(int n,int p){
 
 int main(){
 
-	cout<<powerFast(2,10)<<endl;
+	// cout<<powerFast(2,10)<<endl;
+	string s = to_string(12);
+	cout<<s<<endl;
 	return 0;
 }
