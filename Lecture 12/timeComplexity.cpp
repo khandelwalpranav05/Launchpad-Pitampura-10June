@@ -39,10 +39,10 @@ for(int i =0; i<n; i++){
 	cout<<i;
 }
 
-//O(logn)
-// for(int i =0; i<n; i=i*2){
-// 	cout<<i;
-// }
+O(logn)
+for(int i =1; i<n; i=i*2){
+	cout<<i;
+}
 
 for(int i =0; i<n; i=i+2){
 
@@ -65,10 +65,20 @@ for(int i =0; i<n; i++){
 
 	for (int j = 0; j < n; j++)
 	{
-		for (int k = 0; k < n; ks++)
+		for (int k = 0; k < n; k++)
 			{
 				/* code */
 			}
+	}
+}
+
+//O(n logn)
+
+for(int i =0; i<n; i++){
+
+	for (int j = 1; j < n; j=j*2)
+	{
+		/* code */
 	}
 }
 
