@@ -4,22 +4,35 @@ using namespace std;
 class Car{
 	int price;
 public:
-	char color[20];
+	char* color;
 	int speed;
 
 	Car(){
 		cout<<"constructor is called"<<endl;
 	}
-	Car(int s, int p, char c[20]){
+	Car(int s, int p, char* c){
 		cout<<"perm constructor is called"<<endl;
 		price = set_price(p);
 		speed = s;
+		int length = strlen(c);
+		color = new char[length+1];
 		strcpy(color,c);
 	}
+	// deep copy
+	Car(Car &X){
+		cout<<"inside deep copy constructor"<<endl;
+		price = set_price(X.price);
+		speed = X.speed;
+		int length = strlen(X.color);
+		color = new char[length+1];
+		strcpy(color,X.color);
+	}
 
-	Car( int p, char c[20]){
+	Car( int p, char* c){
 		cout<<"perm 2 constructor is called"<<endl;
 		price = set_price(p);
+		int length = strlen(c);
+		color = new char[length+1];
 		strcpy(color,c);
 	}
 
@@ -60,41 +73,32 @@ public:
 	}
 };
 
+
 int main(int argc, char const *argv[])
 {
-	Car c;
-	c.speed = 10;
-	
-	c.color[0] = 'R';
-	c.color[1] = 'e';
-	c.color[2] = 'd';
-	c.set_price(1000);
-	
-	//c.print();
-	// cout<<"price ";
-	// c.get_price();
-	// 	cout<<"color "<<c.color<<endl;
-	// 	cout<<"speed "<<c.speed<<endl;
-	char col[20] = "white";
-	//Car c(100, 2000,col);
-	//c.print();
-	char cl[20] = "blue";
-	// Car d(20000,cl);
-	// d.print();
-	// cout<<"---------------"<<endl;
-	// Car e;
-	// e = d;
-	// e.print();
-
-	c+d;
-	// copy cons.
-	Car A(c);
+	Car A(1000, 5000, "Yellow");
+	//Car A;
+	// A.speed = 3000;
+	// A.set_price(9000);
+	// A.color = "Blue";
+	cout<<"----Car A----------"<<endl;
 	A.print();
-	c.print();
+	cout<<"-----Car audi---------"<<endl;
+	Car audi(A);
+	audi.print();
+	audi.color[1] ='O';
+	cout<<"-----Car audi---------"<<endl;
+	audi.print();
+	cout<<"----Car A----------"<<endl;
+	A.print();
+
+
+
+
+
+
+
+
+
 	return 0;
 }
-
-
-
-
-
