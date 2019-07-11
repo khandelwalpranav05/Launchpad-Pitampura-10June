@@ -126,6 +126,68 @@ bool searchRecursive(node* head,int item){
 	}
 }
 
+node* midPoint(node*head){
+	node* slow = head;
+	node* fast = head;
+
+	while(fast!=NULL and fast->next!=NULL){
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+
+	return slow;
+}
+
+void reverseIterative(node*&head){
+	node* prev = NULL;
+	node* cur = head;
+
+	while(cur!=NULL){
+		node* n = cur->next;
+		cur->next = prev;
+		prev = cur;
+		cur = n;
+	}
+
+	head = prev;
+}
+
+node* reverseRecursive(node*&head){
+	//Base
+	if(head==NULL || head->next==NULL){
+		return head;
+	}
+
+	//Recur
+	node* newHead = reverseRecursive(head->next);
+	node* curr = head;
+	curr->next->next = curr;
+	curr->next = NULL;
+	return newHead;
+}
+
+node* merge(node* a,node* b){
+	if(a==NULL){
+		return b;
+	}
+
+	if(b==NULL){
+		return a;
+	}
+
+	node*c;
+
+	if(a->data < b->data){
+		c = a;
+		c->next = merge(a->next,b);
+	}else{
+		c = b;
+		c->next = merge(a,b->next);
+	}
+
+	return c;
+}
+
 int main(){
 
 	node* head = NULL;
@@ -136,29 +198,37 @@ int main(){
 	// insertAtHead(head,2);
 	// display(head);
 
-	insertAtHead(head,4);
-	insertAtHead(head,3);
-	insertAtHead(head,2);
-	insertAtHead(head,1);
+	// insertAtHead(head,4);
+	// insertAtHead(head,3);
+	// insertAtHead(head,2);
+	// insertAtHead(head,1);
 
-	display(head);
+	// display(head);
 
-	insertAtTail(head,5);
-	insertAtTail(head,6);
+	// insertAtTail(head,5);
+	// insertAtTail(head,6);
 
-	display(head);
+	// display(head);
 
-	insertAtIndex(head,789,3);
+	// reverseIterative(head);
 
-	display(head);
+	// display(head);
 
-	deleteAtHead(head);
+	// head = reverseRecursive(head);
 
-	display(head);
+	// display(head);
 
-	deleteAtTail(head);
+	// insertAtIndex(head,789,3);
 
-	display(head);
+	// display(head);
+
+	// deleteAtHead(head);
+
+	// display(head);
+
+	// deleteAtTail(head);
+
+	// display(head);
 
 	// if(searchIterative(head,3)){
 	// 	cout<<"Found!"<<endl;
@@ -166,11 +236,36 @@ int main(){
 	// 	cout<<"Not found!"<<endl;
 	// }
 
-	if(searchRecursive(head,3)){
-		cout<<"Found!"<<endl;
-	}else{
-		cout<<"Not found!"<<endl;
-	}
+	// if(searchRecursive(head,3)){
+	// 	cout<<"Found!"<<endl;
+	// }else{
+	// 	cout<<"Not found!"<<endl;
+	// }
+
+	// node* mid = midPoint(head);
+
+	// cout<<mid->data<<endl;
+
+
+
+	node* a = NULL;
+	node* b = NULL;
+
+	insertAtHead(a,5);
+	insertAtHead(a,3);
+	insertAtHead(a,1);
+
+	display(a);
+
+	insertAtHead(b,6);
+	insertAtHead(b,4);
+	insertAtHead(b,2);
+
+	display(b);
+
+	node* merged_head = merge(a,b);
+
+	display(merged_head);
 
 	return 0;
 }
