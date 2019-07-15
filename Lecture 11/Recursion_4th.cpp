@@ -137,6 +137,10 @@ float squareRoot(int n,int p){
 	return ans;
 }
 
+bool isSumSet(int arr[],int n,int sum){
+	
+}
+
 int main(){
 
 	// int arr[] = {6,5,4,3,2,1};
