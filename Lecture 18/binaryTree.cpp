@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <cmath>
 
 using namespace std;
 
@@ -148,6 +149,32 @@ int sumOfNodes(node*root){
 	return sum;
 }
 
+int height(node*root){
+	if(root==NULL){
+		return -1;
+	}
+
+	int left_height = height(root->left);
+	int right_height = height(root->right);
+
+	return max(left_height,right_height) + 1;
+}
+
+int diameter(node*root){
+	if(root==NULL){
+		return 0;
+	}
+
+	int left_dia = diameter(root->left);
+	int right_dia = diameter(root->right);
+
+	int leftH = height(root->left);
+	int rightH = height(root->right);
+	int total_dia = leftH + rightH + 2;
+
+	return max(total_dia,max(left_dia,right_dia));
+}
+
 int main(){
 
 	node* root = buildTree();
@@ -165,8 +192,12 @@ int main(){
 
 	// displayLevelOrderNewLine(root);
 
-	cout<<numberOfNodes(root)<<endl;
-	cout<<sumOfNodes(root)<<endl;
+	// cout<<numberOfNodes(root)<<endl;
+	// cout<<sumOfNodes(root)<<endl;
+
+	// cout<<height(root)<<endl;
+
+	cout<<diameter(root)<<endl;
 
 	return 0;
 }
