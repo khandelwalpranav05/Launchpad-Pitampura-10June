@@ -175,6 +175,54 @@ int diameter(node*root){
 	return max(total_dia,max(left_dia,right_dia));
 }
 
+bool isBalanced(node* root){
+	if(root==NULL){
+		return true;
+	}
+
+	bool leftBalanced = isBalanced(root->left);
+	bool rightBalanced = isBalanced(root->right);
+
+	if(!leftBalanced or !rightBalanced){
+		return false;
+	}
+
+	int leftH = height(root->left);
+	int rightH = height(root->right);
+
+	int gap = abs(leftH - rightH);
+
+	if(gap>1){
+		return false;
+	}else{
+		return true;
+	}
+
+}
+
+class L2{
+public:
+	int height;
+	int diameter;
+};
+
+L2 diameterOptimized(node*root){
+	L2 val;
+
+	if(root==NULL){
+		val.height = -1;
+		val.diameter = 0;
+		return val;
+	}
+
+	L2 left = diameterOptimized(root->left);
+	L2 right = diameterOptimized(root->right);
+
+	val.height = max(left.height,right.height) + 1;
+	val.diameter = max(left.height + right.height + 2,max(left.diameter,right.diameter));
+	return val;
+}
+
 int main(){
 
 	node* root = buildTree();
@@ -197,7 +245,17 @@ int main(){
 
 	// cout<<height(root)<<endl;
 
-	cout<<diameter(root)<<endl;
+	// cout<<diameter(root)<<endl;
+
+	// if(isBalanced(root)){
+	// 	cout<<"Balanced"<<endl;
+	// }else{
+	// 	cout<<"Not Balanced"<<endl;
+	// }
+
+	L2 pair = diameterOptimized(root);
+	cout<<pair.diameter<<endl;
+	cout<<pair.height<<endl;
 
 	return 0;
 }
