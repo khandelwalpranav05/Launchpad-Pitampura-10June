@@ -223,9 +223,51 @@ L2 diameterOptimized(node*root){
 	return val;
 }
 
+class BalancePair{
+public:
+	int height;
+	bool isBalanced;
+};
+
+BalancePair isBalancedOptimized(node*root){
+	BalancePair val;
+
+	if(root==NULL){
+		val.height = -1;
+		val.isBalanced = true;
+		return val;
+	}
+
+	BalancePair left = isBalancedOptimized(root->left);
+	BalancePair right = isBalancedOptimized(root->right);
+
+	val.height = max(left.height,right.height) + 1;
+
+	if(abs(left.height - right.height)<=1 and left.isBalanced and right.isBalanced){
+		val.isBalanced = true;
+	}else{
+		val.isBalanced = false;
+	}
+
+	return val;
+}
+
+node* buildTreeFromArray(int arr[],int s,int e){
+	if(s>e){
+		return NULL;
+	}
+
+	int mid = (s+e)/2;
+	node* root = new node(arr[mid]);
+
+	root->left = buildTreeFromArray(arr,s,mid-1);
+	root->right = buildTreeFromArray(arr,mid+1,e);
+	return root;
+}
+
 int main(){
 
-	node* root = buildTree();
+	// node* root = buildTree();
 
 	// displayPreOrder(root);
 	// cout<<endl;
@@ -253,14 +295,25 @@ int main(){
 	// 	cout<<"Not Balanced"<<endl;
 	// }
 
-	L2 pair = diameterOptimized(root);
-	cout<<pair.diameter<<endl;
-	cout<<pair.height<<endl;
+	// L2 pair = diameterOptimized(root);
+	// cout<<pair.diameter<<endl;
+	// cout<<pair.height<<endl;
+
+	// BalancePair val = isBalancedOptimized(root);
+	// cout<<val.height<<endl;
+	// cout<<val.isBalanced<<endl;
+
+	int arr[]= {1,2,3,4,5,6,7};
+	node* root = buildTreeFromArray(arr,0,6);
+
+	displayInOrder(root);
+	cout<<endl;
 
 	return 0;
 }
 
 // 4 2 1 -1 -1 3 -1 -1 6 5 -1 -1 7 -1 -1
+// 1 -1 2 -1 3 -1 -1
 
 // 18
 // 20
