@@ -164,14 +164,64 @@ int numberOfBST(int n){
 	return ans;
 }
 
+class LinkedListPair{
+public:
+	node* head;
+	node* tail;
+};
+
+LinkedListPair treeToLinkedList(node*root){
+	LinkedListPair l;
+
+	if(root==NULL){
+		l.head = l.tail = NULL;
+		return l;
+	}
+
+	if(root->left==NULL and root->right ==NULL){
+		l.head = l.tail = root;
+		return l;
+	}
+
+	if(root->left!=NULL and root->right ==NULL){
+		LinkedListPair leftLL = treeToLinkedList(root->left);
+		leftLL.tail->right = root;
+
+		l.head = leftLL.head;
+		l.tail = root;
+		return l;
+	}
+
+	if(root->left==NULL and root->right!=NULL){
+		LinkedListPair rightLL = treeToLinkedList(root->right);
+		root->right = rightLL.head;
+
+		l.head = root;
+		l.tail = rightLL.tail;
+		return l;
+	}
+
+	if(root->left !=NULL and root->right !=NULL){
+		LinkedListPair leftLL = treeToLinkedList(root->left);
+		LinkedListPair rightLL = treeToLinkedList(root->right);
+
+		leftLL.tail->right = root;
+		root->right = rightLL.head;
+
+		l.head = leftLL.head;
+		l.tail = rightLL.tail;
+		return l;
+	}
+}
+
 int main(){
 	// node* root1 = contruct();
 
 	// displayInOrder(root);
 	// cout<<endl;
 
-	// int arr[]= {1,2,3,4,5,6,7};
-	// node* root2 = buildTreeFromArray(arr,0,6);
+	int arr[]= {1,2,3,4,5,6,7};
+	node* root2 = buildTreeFromArray(arr,0,6);
 	// cout<<search(root,6)<<endl;
 
 	// cout<<isBST(root1)<<endl;
@@ -181,7 +231,18 @@ int main(){
 	// displayInOrder(root2);
 	// cout<<endl;
 
-	cout<<numberOfBST(4)<<endl;
+	// cout<<numberOfBST(4)<<endl;
+
+	LinkedListPair test = treeToLinkedList(root2);
+
+	node* temp = test.head;
+
+	while(temp!=NULL){
+		cout<<temp->data<<"-->";
+		temp = temp->right;
+	}
+	cout<<"NULL"<<endl;
+
 
 	return 0;
 }
