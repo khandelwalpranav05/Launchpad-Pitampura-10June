@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-template<typename T>
 
+template<typename T>
 class node
 {
 	public:
@@ -12,6 +12,12 @@ class node
 		key = k;
 		value = v;
 		next = NULL;
+	}
+
+	~node(){
+		if(next!=NULL){
+			delete next;
+		}
 	}
 };
 
@@ -36,6 +42,30 @@ class hashTable{
 		return idx;
 	}
 
+	void rehash(){
+		int oldsize = maxSize;
+		maxSize = 2*maxSize;
+		node<T>** oldbucket = bucket;
+
+		bucket = new node<T>*[maxSize];
+		for (int i = 0; i < maxSize; i++)
+		{
+			bucket[i] = NULL;
+		}
+		currSize =0;
+
+		for (int i = 0; i < oldsize; ++i)
+		{
+			node<T>* temp = oldbucket[i];
+			while(temp!=NULL){
+				insert(temp->key, temp->value);
+				temp = temp->next;
+			}
+			delete oldbucket[i];
+		}
+		delete[] oldbucket;
+	}
+
 public:
 	hashTable(int default_size = 7){
 		maxSize = default_size;
@@ -56,6 +86,16 @@ public:
 		bucket[idx] = newNode;
 		currSize++;
 
+		float loadFactor = (float)currSize/(float)maxSize;
+
+		if(loadFactor>0.7){
+
+			cout<<"load factor is"<<loadFactor<<endl;
+			cout<<"rehash"<<endl;
+			rehash();
+		}
+
+
 	}
 
 	void print(){
@@ -75,13 +115,49 @@ public:
 		node<T>* temp = bucket[idx];
 		while(temp!=NULL){
 			if(temp->key == key){
-				cout<<temp->value<<endl;
+				//cout<<temp->value<<endl;
 				return &(temp->value);
 			}
 			temp = temp->next;
 		}
 		return NULL;
 
+	}
+
+	void erase(string key){
+		int idx = hashfunc(key);
+		node<T>* temp = bucket[idx];
+		if(search(key)==NULL){
+			return;
+		}
+		if(temp->key == key){
+			node<T>* tobeDeleted = temp;
+			bucket[idx]=temp->next;
+			tobeDeleted->next = NULL;
+			delete tobeDeleted;
+			return;
+		}
+		while(temp->next->key != key){
+			temp=temp->next;
+		}
+		node<T>* tobeDeleted = temp->next;
+		temp->next = temp->next->next;
+		tobeDeleted->next = NULL;
+		delete tobeDeleted;
+		return;
+	}
+
+	T& operator[](string key){
+		T* add = NULL;
+		if(search(key) != NULL){
+			 add =  search(key);
+		}
+		else{
+			T val;
+			insert(key, val);
+			add = search(key);
+		}
+		return *add;
 	}
 };
 
