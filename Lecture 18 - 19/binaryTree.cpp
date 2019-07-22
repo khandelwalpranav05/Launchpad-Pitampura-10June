@@ -265,6 +265,31 @@ node* buildTreeFromArray(int arr[],int s,int e){
 	return root;
 }
 
+int preorder_count = 0;
+
+node* buildTreeFromInOrderPreOrder(int pre[],int in[],int s,int e){
+	if(s>e){
+		return NULL;
+	}
+
+	node* root = new node(pre[preorder_count]);
+
+	int index = -1;
+
+	for(int i=s;i<=e;i++){
+		if(in[i]==pre[preorder_count]){
+			index = i;
+			break;
+		}
+	}
+
+	preorder_count++;
+	root->left = buildTreeFromInOrderPreOrder(pre,in,s,index-1);
+	root->right = buildTreeFromInOrderPreOrder(pre,in,index+1,e);
+	return root;
+
+}
+
 int main(){
 
 	// node* root = buildTree();
@@ -303,8 +328,15 @@ int main(){
 	// cout<<val.height<<endl;
 	// cout<<val.isBalanced<<endl;
 
-	int arr[]= {1,2,3,4,5,6,7};
-	node* root = buildTreeFromArray(arr,0,6);
+	// int arr[]= {1,2,3,4,5,6,7};
+	// node* root = buildTreeFromArray(arr,0,6);
+
+	// displayInOrder(root);
+	// cout<<endl;
+
+	int pre[] = {1,2,4,5,3,6,7};
+	int in[] = {4,2,5,1,6,3,7};
+	node* root = buildTreeFromInOrderPreOrder(pre,in,0,6);
 
 	displayInOrder(root);
 	cout<<endl;

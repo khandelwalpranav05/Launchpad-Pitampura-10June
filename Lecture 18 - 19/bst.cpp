@@ -102,8 +102,120 @@ bool isBST(node* root,int minVal = INT_MIN,int maxVal = INT_MAX){
 	}
 }
 
+node* deletion(node* root,int data){
+	if(root==NULL){
+		return NULL;
+	}
+
+	if(data > root->data){
+
+		root->right = deletion(root->right,data);
+		return root;
+
+	}else if(data < root->data){
+
+		root->left = deletion(root->left,data);
+		return root;
+
+	}else{
+
+		if(root->left == NULL and root->right==NULL){
+			delete root;
+			return NULL;
+		}
+
+		if(root->left != NULL and root->right==NULL){
+			node* temp = root->left;
+			delete root;
+			return temp;
+		}
+
+		if(root->left == NULL and root->right!=NULL){
+			node* temp = root->right;
+			delete root;
+			return temp;
+		}
+
+		if(root->left != NULL and root->right !=NULL){
+			node* new_data = root->right;
+
+			while(new_data->left!=NULL){
+				new_data = new_data->left;
+			}
+
+			root->data = new_data->data;
+
+			root->right = deletion(root->right,new_data->data);
+			return root;
+		}
+	}
+}
+
+int numberOfBST(int n){
+	if(n==0){
+		return 1;
+	}
+
+	int ans = 0;
+	for(int i=1;i<=n;i++){
+		ans += numberOfBST(i-1)*numberOfBST(n-i);
+	}
+
+	return ans;
+}
+
+class LinkedListPair{
+public:
+	node* head;
+	node* tail;
+};
+
+LinkedListPair treeToLinkedList(node*root){
+	LinkedListPair l;
+
+	if(root==NULL){
+		l.head = l.tail = NULL;
+		return l;
+	}
+
+	if(root->left==NULL and root->right ==NULL){
+		l.head = l.tail = root;
+		return l;
+	}
+
+	if(root->left!=NULL and root->right ==NULL){
+		LinkedListPair leftLL = treeToLinkedList(root->left);
+		leftLL.tail->right = root;
+
+		l.head = leftLL.head;
+		l.tail = root;
+		return l;
+	}
+
+	if(root->left==NULL and root->right!=NULL){
+		LinkedListPair rightLL = treeToLinkedList(root->right);
+		root->right = rightLL.head;
+
+		l.head = root;
+		l.tail = rightLL.tail;
+		return l;
+	}
+
+	if(root->left !=NULL and root->right !=NULL){
+		LinkedListPair leftLL = treeToLinkedList(root->left);
+		LinkedListPair rightLL = treeToLinkedList(root->right);
+
+		leftLL.tail->right = root;
+		root->right = rightLL.head;
+
+		l.head = leftLL.head;
+		l.tail = rightLL.tail;
+		return l;
+	}
+}
+
 int main(){
-	node* root1 = contruct();
+	// node* root1 = contruct();
 
 	// displayInOrder(root);
 	// cout<<endl;
@@ -112,8 +224,25 @@ int main(){
 	node* root2 = buildTreeFromArray(arr,0,6);
 	// cout<<search(root,6)<<endl;
 
-	cout<<isBST(root1)<<endl;
-	cout<<isBST(root2)<<endl;
+	// cout<<isBST(root1)<<endl;
+	// cout<<isBST(root2)<<endl;
+
+	// root2 = deletion(root2,4);
+	// displayInOrder(root2);
+	// cout<<endl;
+
+	// cout<<numberOfBST(4)<<endl;
+
+	LinkedListPair test = treeToLinkedList(root2);
+
+	node* temp = test.head;
+
+	while(temp!=NULL){
+		cout<<temp->data<<"-->";
+		temp = temp->right;
+	}
+	cout<<"NULL"<<endl;
+
 
 	return 0;
 }
