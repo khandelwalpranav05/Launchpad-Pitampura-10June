@@ -219,6 +219,30 @@ int rodProfitOptimized(int arr[],int rodLength){
 	return dp[rodLength];
 }
 
+int lis(int arr[],int n){
+	int dp[n];
+
+	for(int i=0;i<n;i++){
+		dp[i] = 1;
+	}
+
+	int max_seq = INT_MIN;
+
+	for(int i=1;i<n;i++){
+
+		for(int j=0;j<i;j++){
+
+			if(arr[j]<arr[i]){
+				dp[i] = max(dp[j] + 1,dp[i]);
+			}
+		}
+
+		max_seq = max(max_seq,dp[i]);
+	}
+
+	return max_seq;
+}
+
 int main(){
 
 	// int n;
@@ -240,8 +264,12 @@ int main(){
 
 	// cout<<countBoardPath_DP(0,10)<<endl;
 
-	int arr[] = {2,3,2,5};
+	// int arr[] = {2,3,2,5};
 	// cout<<rodProfit(arr,4)<<endl;
-	cout<<rodProfitOptimized(arr,4)<<endl;
+	// cout<<rodProfitOptimized(arr,4)<<endl;
+
+	int arr[] = {3,10,2,22,5};
+	cout<<lis(arr,5)<<endl;
+
 	return 0;
 }
