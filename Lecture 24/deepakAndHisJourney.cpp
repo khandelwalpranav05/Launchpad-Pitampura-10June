@@ -6,26 +6,26 @@ int main(int argc, char const *argv[])
 	int t;
 	cin>>t;
 	while(t--){
-		int n;
+		long long int n;
 		cin>>n;
-		int C[n];
-		int L[n];
+		long long int C[n];
+		long long int L[n];
 
-		for (int i = 0; i < n; i++)
-		{	int cost;
+		for (long long int i = 0; i < n; i++)
+		{	long long int cost;
 			cin>>cost;
 			C[i] = cost;
 			
 		}
-		for (int i = 0; i < n; i++)
-		{	int petrol;
+		for (long long int i = 0; i < n; i++)
+		{	long long int petrol;
 			cin>>petrol;
 			L[i] = petrol;
 			
 		}
-		int minCost = C[0];
+		long long int minCost = C[0];
 		long long int val =0;
-		for (int i = 0; i < n; i++)
+		for (long long int i = 0; i < n; i++)
 		{
 			minCost = min(minCost, C[i]);
 			val += minCost*L[i]; 
@@ -37,6 +37,3 @@ int main(int argc, char const *argv[])
 	}
 	return 0;
 }
-
-
-
