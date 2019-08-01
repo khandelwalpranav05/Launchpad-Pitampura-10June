@@ -166,6 +166,43 @@ public:
 		cout<<endl;
 
 	}
+
+	void topologicalSortBFS(){
+		queue<T> q;
+		map<T,int> indegree;
+
+		for(auto vertex:adjList){
+			indegree[vertex.first] = 0;
+		}
+
+		for(auto vertex:adjList){
+			for(auto neighbour:vertex.second){
+				indegree[neighbour]++;
+			}
+		}
+
+		for(auto vertex:adjList){
+			if(indegree[vertex.first]==0){
+				q.push(vertex.first);
+			}
+		}
+
+		while(!q.empty()){
+			T node = q.front();
+			q.pop();
+
+			cout<<node<<" -> ";
+
+			for(auto neighbour:adjList[node]){
+				indegree[neighbour]--;
+
+				if(indegree[neighbour]==0){
+					q.push(neighbour);
+				}
+			}
+		}
+
+	}
 };
 
 int main(){
@@ -200,18 +237,36 @@ int main(){
 	// g.dfs(1);
 
 
-	Graph<string> g;
+	// Graph<string> g;
 
-	g.addEdge("Maths","Programming",false);
-	g.addEdge("Programming","Java",false);
-	g.addEdge("Java","JS",false);
-	g.addEdge("Programming","Python",false);
-	g.addEdge("Python","Web",false);
-	g.addEdge("JS","Web",false);
+	// g.addEdge("Maths","Programming",false);
+	// g.addEdge("Programming","Java",false);
+	// g.addEdge("Java","JS",false);
+	// g.addEdge("Programming","Python",false);
+	// g.addEdge("Python","Web",false);
+	// g.addEdge("JS","Web",false);
 
-	g.topologicalSortDFS();
+	// cout<<"DFS"<<endl;
+	// g.topologicalSortDFS();
+	// cout<<"BFS"<<endl;
+	// g.topologicalSortBFS();
 
+	Graph<int>
 
+	int board[50] = {0};
+
+	board[2] = 13;
+	board[5] = 2;
+	board[9] = 18;
+	board[18] = 11;
+	board[17] = -13;
+	board[20] = -14;
+	board[24] = -8;
+	board[25] = -10;
+	board[32] = -2;
+	board[34] = -22;
+
+	x + dice + board[x+dice]
 
 
 	return 0;
@@ -219,15 +274,3 @@ int main(){
 
 
 
-	// int board[50] = {0};
-
-	// board[2] = 13;
-	// board[5] = 2;
-	// board[9] = 18;
-	// board[18] = 11;
-	// board[17] = -13;
-	// board[20] = -14;
-	// board[24] = -8;
-	// board[25] = -10;
-	// board[32] = -2;
-	// board[34] = -22;
