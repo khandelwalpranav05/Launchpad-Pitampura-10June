@@ -203,6 +203,37 @@ public:
 		}
 
 	}
+
+	int snake_and_ladder(T src,T dest){
+		queue<T> q;
+		map<T,int> dist;
+
+		for(auto vertex:adjList){
+			dist[vertex.first] = INT_MAX;
+		}
+
+		dist[src] = 0;
+		q.push(src);
+
+		while(!q.empty()){
+
+			T temp = q.front();
+			q.pop();
+
+			for(auto neighbour:adjList[temp]){
+				if(dist[neighbour]==INT_MAX){
+					dist[neighbour] = dist[temp] + 1;
+					q.push(neighbour);
+				}
+			}
+		}
+
+		// for(auto vertex:adjList){
+		// 	cout<<"Distance of "<<vertex.first<<" from "<<src<<" is "<<dist[vertex.first]<<endl;
+		// }
+
+		return dist[dest];
+	}
 };
 
 int main(){
@@ -251,7 +282,7 @@ int main(){
 	// cout<<"BFS"<<endl;
 	// g.topologicalSortBFS();
 
-	Graph<int>
+	Graph<int> g;
 
 	int board[50] = {0};
 
@@ -266,7 +297,18 @@ int main(){
 	board[32] = -2;
 	board[34] = -22;
 
-	x + dice + board[x+dice]
+	for(int i=0;i<=36;i++){
+		for(int dice = 1;dice<=6;dice++){
+			int u = i;
+			int v = u + dice + board[u + dice];
+
+			g.addEdge(u,v,false);
+		}
+	}
+
+	cout<<g.snake_and_ladder(0,36)<<endl;
+
+	// x + dice + board[x+dice]
 
 
 	return 0;
