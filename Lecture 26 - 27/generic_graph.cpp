@@ -22,6 +22,22 @@ class Graph{
 		}
 	}
 
+	void topologicalSortHelperDFS(T node,map<T,bool> &visited,list<T> &order){
+		visited[node] = true;
+
+		for(auto neighbour:adjList[node]){
+			if(!visited[neighbour]){
+				topologicalSortHelperDFS(neighbour,visited,order);
+
+				
+			}
+		}
+
+		//push_front
+		order.push_front(node);
+
+	}
+
 public:
 	void addEdge(T u,T v, bool bidir = true){
 		adjList[u].push_back(v);
@@ -132,6 +148,24 @@ public:
 
 		return false;
 	}
+
+	void topologicalSortDFS(){
+
+		map<T,bool> visited;
+		list<T> order;
+
+		for(auto i:adjList){
+			if (!visited[i.first]){
+				topologicalSortHelperDFS(i.first,visited,order)	;
+			}
+		}
+
+		for(auto var:order){
+			cout<<var<<" -> ";
+		}
+		cout<<endl;
+
+	}
 };
 
 int main(){
@@ -148,23 +182,52 @@ int main(){
 	// g.display();
 	// g.bfs(1);
 
-	Graph<int> g;
+	// Graph<int> g;
 
-	g.addEdge(1,2);
-	g.addEdge(1,3);
-	g.addEdge(1,4);
-	g.addEdge(2,3);
-	g.addEdge(3,5);
-	g.addEdge(4,5);
-	g.addEdge(5,6);
+	// g.addEdge(1,2);
+	// g.addEdge(1,3);
+	// g.addEdge(1,4);
+	// g.addEdge(2,3);
+	// g.addEdge(3,5);
+	// g.addEdge(4,5);
+	// g.addEdge(5,6);
 
-	cout<<g.isCyclicBFS(1)<<endl;
+	// cout<<g.isCyclicBFS(1)<<endl;
 
 	// g.display();
 	// g.bfs_shortestPath(1);
 
 	// g.dfs(1);
 
+
+	Graph<string> g;
+
+	g.addEdge("Maths","Programming",false);
+	g.addEdge("Programming","Java",false);
+	g.addEdge("Java","JS",false);
+	g.addEdge("Programming","Python",false);
+	g.addEdge("Python","Web",false);
+	g.addEdge("JS","Web",false);
+
+	g.topologicalSortDFS();
+
+
+
+
 	return 0;
 }
 
+
+
+	// int board[50] = {0};
+
+	// board[2] = 13;
+	// board[5] = 2;
+	// board[9] = 18;
+	// board[18] = 11;
+	// board[17] = -13;
+	// board[20] = -14;
+	// board[24] = -8;
+	// board[25] = -10;
+	// board[32] = -2;
+	// board[34] = -22;
